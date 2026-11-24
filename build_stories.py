@@ -109,6 +109,29 @@ def build_sections(homepage):
     return pages
 
 
+def pause_book_section(pages):
+    # Keep the templates so the section can be restored after the Litres update.
+    for document in pages.values():
+        for link in document.select('a[href="book.html"]'):
+            link.decompose()
+
+    homepage = pages["index.html"]
+    homepage.select_one("#book").decompose()
+    homepage.select_one(".about-grid")["style"] = "grid-template-columns: 1fr"
+
+    book = pages["book.html"]
+    notice = "Раздел временно закрыт до обновления информации на Литрес."
+    replacement = BeautifulSoup(
+        f'<main class="shell subpage"><h1>Книга</h1><p class="lead">{notice}</p>'
+        '<a class="text-link" href="index.html">На главную</a></main>',
+        "html.parser",
+    )
+    book.main.replace_with(replacement.main)
+    for selector in ('meta[name="description"]', 'meta[property="og:description"]'):
+        book.select_one(selector)["content"] = notice
+    book.select_one('meta[property="og:image"]').decompose()
+
+
 def build(output, day):
     page = BeautifulSoup((ROOT / "homepage.html").read_text(encoding="utf-8"), "html.parser")
     if day != date(2026, 11, 23):
@@ -116,6 +139,7 @@ def build(output, day):
             replace_story(page, day, channel, *rubric)
 
     pages = {"index.html": page, **build_sections(page)}
+    pause_book_section(pages)
     output.mkdir(parents=True, exist_ok=True)
     for filename, document in pages.items():
         (output / filename).write_text(str(document), encoding="utf-8")
