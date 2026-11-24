@@ -37,6 +37,7 @@ jobs:
         run: |
           cp homepage.html index.html
           python build_stories.py dist "$STORY_DATE"
+          test -s dist/index.html
         env:
           STORY_DATE: ${{ inputs.story_date }}
       - uses: actions/upload-pages-artifact@v4
