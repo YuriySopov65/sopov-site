@@ -42,11 +42,98 @@
         </div>
       </div>
     </div>
-    <section class="subsection" aria-labelledby="contact-title">
-      <h2 class="section-title" id="contact-title">Связаться со мной</h2>
-      <p>Если хотите обсудить управленческую ситуацию или поделиться историей из практики продаж, напишите мне.</p>
-      <a class="text-link" href="mailto:ups25@yandex.ru">ups25@yandex.ru</a>
+    <section class="subsection" id="discussion" aria-labelledby="contact-title">
+      <h2 class="section-title" id="contact-title">Обсудить в каналах</h2>
+      <p>Вопросы по публикациям и примеры из вашей практики оставляйте под постом, если к нему открыты комментарии.</p>
+      <div class="channel-grid">
+        <div class="channel management">
+          <h3>Управлять</h3>
+          <div class="actions">
+            <a class="button primary" data-goal="manage_telegram" href="https://t.me/sopov_lider" aria-label="Управлять в Telegram">Telegram ↗</a>
+            <a class="button secondary" data-goal="manage_max" href="https://max.ru/channel_sopov_lider" aria-label="Управлять в MAX">MAX ↗</a>
+          </div>
+        </div>
+        <div class="channel sales">
+          <h3>Продавать</h3>
+          <div class="actions">
+            <a class="button primary" data-goal="sales_telegram" href="https://t.me/sopov_praktika" aria-label="Продавать в Telegram">Telegram ↗</a>
+            <a class="button secondary" data-goal="sales_max" href="https://max.ru/channel_sopov" aria-label="Продавать в MAX">MAX ↗</a>
+          </div>
+        </div>
+      </div>
+      <p>Для личного вопроса <a class="text-link" href="https://t.me/yursopov">напишите Юрию в Telegram</a>.</p>
     </section>
+  </main>
+</template>
+
+<template data-page="materials" data-title="Материалы" data-description="Практические материалы Юрия Сопова о делегировании, переговорах и продажах.">
+  <main class="shell subpage">
+    <h1>Материалы</h1>
+    <p class="lead">Разборы ситуаций, с которыми сталкиваются руководители и продавцы.</p>
+    <div class="channel-grid">
+      <article class="channel management">
+        <p class="rubric">Управлять</p>
+        <h2>Как делегировать задачу, чтобы она не вернулась к вам</h2>
+        <p>Что обсудить до начала работы и какие три вопроса задать сотруднику.</p>
+        <div class="actions"><a class="button primary" href="delegation.html">Читать о делегировании</a></div>
+      </article>
+      <article class="channel sales">
+        <p class="rubric">Продавать</p>
+        <h2>Что ответить клиенту, когда он говорит «дорого»</h2>
+        <p>Как выяснить, что клиент сравнивает, и продолжить разговор о предложении.</p>
+        <div class="actions"><a class="button primary" href="price-objection.html">Читать о переговорах</a></div>
+      </article>
+    </div>
+  </main>
+</template>
+
+<template data-page="delegation" data-nav="materials" data-title="Как делегировать задачу" data-description="Как объяснить результат, передать полномочия и договориться о контрольной точке. Три вопроса сотруднику.">
+  <main class="shell subpage guide">
+    <a class="text-link" href="materials.html">← Все материалы</a>
+    <h1>Как делегировать задачу, чтобы она не вернулась к вам</h1>
+    <p class="lead">Вы поручили сотруднику работу. Через час он спрашивает, кому звонить, завтра — что согласовывать, а к пятнице вы заканчиваете всё сами. Знакомо?</p>
+    <p>Перед началом работы договоритесь о результате, пределах полномочий и моменте, когда вы вместе посмотрите, что получается. Тогда сотрудник будет знать, какие решения он принимает сам и в какой ситуации нужна ваша помощь.</p>
+    <h2>Как это может звучать</h2>
+    <blockquote>К пятнице подготовь сравнение трёх вариантов поставки и предложи, какой выбрать. С поставщиками договариваешься сам. Если сроки выходят за пределы месяца, напиши сразу. В среду посмотрим, какие варианты уже есть.</blockquote>
+    <h2>Три вопроса в конце разговора</h2>
+    <ol>
+      <li>Что будет готово к пятнице и в каком виде?</li>
+      <li>Какие решения ты принимаешь самостоятельно?</li>
+      <li>Что мы проверяем в среду и в каком случае ты напишешь раньше?</li>
+    </ol>
+    <p>Попросите сотрудника ответить своими словами. Вы сразу услышите, где он понял договорённость иначе, пока ещё можно спокойно её уточнить.</p>
+    <p>Есть свой пример? Откройте пост о делегировании и поделитесь опытом в комментариях, если они доступны.</p>
+    <p><a class="text-link" href="https://t.me/sopov_lider/723">Открыть пост о делегировании в Telegram ↗</a></p>
+    <h2>Подписаться на «Управлять»</h2>
+    <div class="actions">
+      <a class="button primary" data-goal="manage_telegram" href="https://t.me/sopov_lider">Telegram ↗</a>
+      <a class="button secondary" data-goal="manage_max" href="https://max.ru/channel_sopov_lider">MAX ↗</a>
+    </div>
+  </main>
+</template>
+
+<template data-page="price-objection" data-nav="materials" data-title="Что ответить клиенту на «дорого»" data-description="Три вопроса клиенту, чтобы разобраться в возражении о цене и сравнить предложения по существу.">
+  <main class="shell subpage guide">
+    <a class="text-link" href="materials.html">← Все материалы</a>
+    <h1>Что ответить клиенту, когда он говорит «дорого»</h1>
+    <p class="lead">Клиент говорит «дорого», а разговор продолжается. Спросите, что именно он сравнивает. За ценой может стоять бюджет, более дешёвое предложение или сомнение в результате.</p>
+    <h2>Что меняется, когда цена становится понятнее</h2>
+    <p>В одном эксперименте в столовой рядом с куриным супом по очереди ставили две таблички. На одной перечисляли ингредиенты. На второй показывали ещё и расходы на приготовление. Во втором случае доля покупавших суп выросла с 2,3 до 2,8%. В переговорах я бы начал с того, чтобы объяснить состав предложения. Клиенту проще сравнивать цены, когда понятно, что входит в каждую.</p>
+    <p><a class="text-link" href="https://www.hbs.edu/ris/Publication%20Files/15-017_f67df7f5-8336-47fc-a0c1-098838aa550d.pdf">Исследование Harvard Business School ↗</a></p>
+    <h2>Что спросить клиента</h2>
+    <ol>
+      <li>С чем сравниваете нашу цену?</li>
+      <li>Что входит в оба предложения? Давайте сверим объём, сроки и условия.</li>
+      <li>Если другой вариант дешевле, что пока удерживает вас от решения?</li>
+    </ol>
+    <p>Если дело в бюджете, обсудите другой объём. Если клиент сомневается в сроках или результате, поговорите о них. Так вы поймёте, какой вопрос нужно решить, прежде чем обсуждать скидку.</p>
+    <p>Как вы отвечаете на «дорого»? Поделитесь в комментариях под постом, если они открыты.</p>
+    <p><a class="text-link" href="https://t.me/sopov_praktika/411">Открыть пост о цене в Telegram ↗</a></p>
+    <h2>Подписаться на «Продавать»</h2>
+    <div class="actions">
+      <a class="button primary" data-goal="sales_telegram" href="https://t.me/sopov_praktika">Telegram ↗</a>
+      <a class="button secondary" data-goal="sales_max" href="https://max.ru/channel_sopov">MAX ↗</a>
+    </div>
   </main>
 </template>
 
