@@ -1,0 +1,46 @@
+name: Publish the site and daily stories
+
+on:
+  schedule:
+    # 16:35 Moscow time, after the 16:00 channel posts.
+    - cron: '35 13 * * *'
+  workflow_dispatch:
+    inputs:
+      story_date:
+        description: 'Moscow date (YYYY-MM-DD). Leave blank for today.'
+        type: string
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/configure-pages@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - run: python -m pip install beautifulsoup4==4.14.3
+      - name: Build the approved homepage
+        run: |
+          cp homepage.html index.html
+          python build_stories.py dist "$STORY_DATE"
+        env:
+          STORY_DATE: ${{ inputs.story_date }}
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: dist
+      - uses: actions/deploy-pages@v4
+        id: deploy
