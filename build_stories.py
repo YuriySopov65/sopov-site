@@ -92,7 +92,9 @@ def build_sections(homepage):
         page.select_one('meta[property="og:description"]')["content"] = description
         page.select_one('meta[property="og:url"]')["content"] = canonical
         page.select_one('link[rel="canonical"]')["href"] = canonical
-        page.select_one(f'nav a[href="{filename}"]')["aria-current"] = "page"
+        nav_href = f'{template.get("data-nav", name)}.html'
+        nav_link = page.select_one(f'nav a[href="{nav_href}"]')
+        nav_link["aria-current"] = "page" if nav_href == filename else "location"
         page.main.replace_with(deepcopy(template.main))
 
         if name == "stories":
