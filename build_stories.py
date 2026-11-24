@@ -1,4 +1,5 @@
 """Build the home page with the two scheduled rubrics for one Moscow date."""
+from copy import deepcopy
 from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 import re
@@ -74,14 +75,48 @@ def replace_story(document, day, channel, pattern, rubric, fallback_title):
     print(f"{day.isoformat()} {channel}: selected post {post_id}")
 
 
+def build_sections(homepage):
+    templates = BeautifulSoup((ROOT / "sections.html").read_text(encoding="utf-8"), "html.parser")
+    pages = {}
+    for template in templates.select("template[data-page]"):
+        name = template["data-page"]
+        filename = f"{name}.html"
+        title = f'{template["data-title"]} — Юрий Сопов'
+        description = template["data-description"]
+        canonical = f"https://sopov-tolead.ru/{filename}"
+
+        page = deepcopy(homepage)
+        page.title.string = title
+        page.select_one('meta[name="description"]')["content"] = description
+        page.select_one('meta[property="og:title"]')["content"] = title
+        page.select_one('meta[property="og:description"]')["content"] = description
+        page.select_one('meta[property="og:url"]')["content"] = canonical
+        page.select_one('link[rel="canonical"]')["href"] = canonical
+        page.select_one(f'nav a[href="{filename}"]')["aria-current"] = "page"
+        page.main.replace_with(deepcopy(template.main))
+
+        if name == "stories":
+            edition = page.select_one(".story-edition")
+            for story in homepage.select("article[data-channel]"):
+                entry = deepcopy(story)
+                entry.h3.name = "h2"
+                edition.append(entry)
+        if name == "book":
+            page.select_one('meta[property="og:image"]')["content"] = page.select_one(".cover")["src"]
+        pages[filename] = page
+    return pages
+
+
 def build(output, day):
-    page = BeautifulSoup((ROOT / "index.html").read_text(encoding="utf-8"), "html.parser")
+    page = BeautifulSoup((ROOT / "homepage.html").read_text(encoding="utf-8"), "html.parser")
     if day != date(2026, 11, 23):
         for channel, rubric in RUBRICS.items():
             replace_story(page, day, channel, *rubric)
 
+    pages = {"index.html": page, **build_sections(page)}
     output.mkdir(parents=True, exist_ok=True)
-    (output / "index.html").write_text(str(page), encoding="utf-8")
+    for filename, document in pages.items():
+        (output / filename).write_text(str(document), encoding="utf-8")
 
 
 if __name__ == "__main__":
