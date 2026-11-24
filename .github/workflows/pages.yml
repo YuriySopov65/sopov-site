@@ -2,8 +2,8 @@ name: Publish the site and daily stories
 
 on:
   schedule:
-    # 16:35 Moscow time, after the 16:00 channel posts.
-    - cron: '35 13 * * *'
+    # 22:00 Moscow time (19:00 UTC), after the daily channel posts.
+    - cron: '0 19 * * *'
   workflow_dispatch:
     inputs:
       story_date:
@@ -33,7 +33,9 @@ jobs:
       - name: Build the approved homepage
         run: |
           python build_stories.py dist "$STORY_DATE"
-          for page in index stories about book; do test -s "dist/$page.html"; done
+          for page in index stories about book materials delegation price-objection; do
+            test -s "dist/$page.html"
+          done
         env:
           STORY_DATE: ${{ inputs.story_date }}
       - uses: actions/upload-pages-artifact@v4
